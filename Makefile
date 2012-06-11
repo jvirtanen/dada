@@ -29,7 +29,6 @@ all: test
 clean:
 	$(E) "  CLEAN    "
 	$(Q) rm -f $(OBJS) $(PROG)
-	$(Q) find . -name *.pyc | xargs rm -f
 .PHONY: clean
 
 install: $(PROG)
