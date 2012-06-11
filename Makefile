@@ -28,7 +28,7 @@ all: test
 
 clean:
 	$(E) "  CLEAN    "
-	$(Q) rm -f $(OBJS) $(PROG)
+	$(Q) $(RM) $(OBJS) $(PROG)
 .PHONY: clean
 
 install: $(PROG)
