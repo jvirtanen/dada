@@ -35,6 +35,8 @@
  *     https://github.com/jvirtanen/dada
  */
 
+#define VERSION "0.0.1"
+
 struct settings {
     unsigned long long  size;
     char                field_separator;
@@ -60,6 +62,7 @@ enum column_type {
 };
 
 static void usage(void);
+static void version(void);
 static unsigned long long parse_size(const char *);
 static void init(void);
 static size_t generate_number_of_columns(void);
@@ -88,7 +91,7 @@ main(int argc, char *argv[])
 
     opterr = 0;
 
-    while ((ch = getopt(argc, argv, "f:s:")) != -1) {
+    while ((ch = getopt(argc, argv, "f:s:v")) != -1) {
         switch (ch) {
         case 'f':
             settings.field_separator = optarg[0];
@@ -96,6 +99,8 @@ main(int argc, char *argv[])
         case 's':
             settings.size = parse_size(optarg);
             break;
+        case 'v':
+            version();
         default:
             usage();
         }
@@ -126,8 +131,15 @@ main(int argc, char *argv[])
 static void
 usage(void)
 {
-    fprintf(stderr, "Usage: dada [-f field-separator] [-s size]\n");
+    fprintf(stderr, "Usage: dada [-f field-separator] [-s size] [-v]\n");
     exit(EXIT_FAILURE);
+}
+
+static void
+version(void)
+{
+    printf("%s\n", VERSION);
+    exit(EXIT_SUCCESS);
 }
 
 static unsigned long long
