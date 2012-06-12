@@ -20,6 +20,11 @@ class DadaTest(unittest.TestCase):
         stdoutdata, _ = dada('-s1m')
         self.assertGreaterEqual(len(stdoutdata), 1024 * 1024)
 
+    def test_usage(self):
+        _, stderrdata = dada('-h')
+        self.assertEqual(stderrdata,
+            'Usage: dada [-f field-separator] [-s size]\n')
+
 
 def dada(*opts):
     args = ['../dada']
