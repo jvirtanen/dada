@@ -12,8 +12,8 @@ class DadaTest(unittest.TestCase):
         self.assertGreaterEqual(len(stdoutdata), 1024)
         self.assertLessEqual(len(stdoutdata), 8 * 1024)
 
-    def test_field_separator(self):
-        stdoutdata, _ = dada('-f,')
+    def test_delimiter(self):
+        stdoutdata, _ = dada('-d,')
         self.assertIn(',', stdoutdata)
 
     def test_size(self):
@@ -27,7 +27,7 @@ class DadaTest(unittest.TestCase):
     def test_usage(self):
         _, stderrdata = dada('-h')
         self.assertEqual(stderrdata,
-            'Usage: dada [-f field-separator] [-s size] [-v]\n')
+            'Usage: dada [-d delimiter] [-s size] [-v]\n')
 
 
 def dada(*opts):

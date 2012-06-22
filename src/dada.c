@@ -39,11 +39,11 @@
 
 struct settings {
     unsigned long long  size;
-    char                field_separator;
+    char                field_delimiter;
 };
 
 #define DEFAULT_SIZE            1024
-#define DEFAULT_FIELD_SEPARATOR '\t'
+#define DEFAULT_FIELD_DELIMITER '\t'
 
 #define RECORD_SEPARATOR '\n'
 
@@ -86,15 +86,15 @@ main(int argc, char *argv[])
 
     struct settings settings = {
         .size               = DEFAULT_SIZE,
-        .field_separator    = DEFAULT_FIELD_SEPARATOR
+        .field_delimiter    = DEFAULT_FIELD_DELIMITER
     };
 
     opterr = 0;
 
-    while ((ch = getopt(argc, argv, "f:s:v")) != -1) {
+    while ((ch = getopt(argc, argv, "d:s:v")) != -1) {
         switch (ch) {
-        case 'f':
-            settings.field_separator = optarg[0];
+        case 'd':
+            settings.field_delimiter = optarg[0];
             break;
         case 's':
             settings.size = parse_size(optarg);
@@ -131,7 +131,7 @@ main(int argc, char *argv[])
 static void
 usage(void)
 {
-    fprintf(stderr, "Usage: dada [-f field-separator] [-s size] [-v]\n");
+    fprintf(stderr, "Usage: dada [-d delimiter] [-s size] [-v]\n");
     exit(EXIT_FAILURE);
 }
 
@@ -236,7 +236,7 @@ write_row(FILE *file, const enum column_type *column_types,
 
     for (i = 0; i < number_of_columns - 1; i++) {
         size += write_field(file, column_types[i]) + 1;
-        fputc(settings->field_separator, file);
+        fputc(settings->field_delimiter, file);
     }
     size += write_field(file, column_types[i]) + 1;
     fputc(RECORD_SEPARATOR, file);

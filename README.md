@@ -7,7 +7,7 @@ Dada generates tabular text data.
 Usage
 -----
 
-    Usage: dada [-f field-separator] [-s size] [-v]
+    Usage: dada [-d delimiter] [-s size] [-v]
 
 
 Installation
