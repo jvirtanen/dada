@@ -38,12 +38,12 @@
 #define VERSION "0.0.1"
 
 struct settings {
-    unsigned long long  size;
     char                field_delimiter;
+    unsigned long long  size;
 };
 
-#define DEFAULT_SIZE            1024
 #define DEFAULT_FIELD_DELIMITER '\t'
+#define DEFAULT_SIZE            1024
 
 #define RECORD_SEPARATOR '\n'
 
@@ -85,8 +85,8 @@ main(int argc, char *argv[])
     int ch;
 
     struct settings settings = {
-        .size               = DEFAULT_SIZE,
-        .field_delimiter    = DEFAULT_FIELD_DELIMITER
+        .field_delimiter    = DEFAULT_FIELD_DELIMITER,
+        .size               = DEFAULT_SIZE
     };
 
     opterr = 0;
