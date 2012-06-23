@@ -35,7 +35,7 @@
  *     https://github.com/jvirtanen/dada
  */
 
-#define VERSION "0.0.1"
+#define VERSION "0.1.0"
 
 struct settings {
     char                field_delimiter;
