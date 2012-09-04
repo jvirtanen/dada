@@ -13,11 +13,9 @@ Usage
 Installation
 ------------
 
-Install to `/usr/local/bin`:
-
     make install
 
-Install to `$HOME/bin`:
+The default installation location is `/usr/local`. Override it with `$PREFIX`:
 
     PREFIX=$HOME make install
 
