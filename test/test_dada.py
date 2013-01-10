@@ -12,6 +12,11 @@ class DadaTest(unittest.TestCase):
         self.assertGreaterEqual(len(stdoutdata), 1024)
         self.assertLessEqual(len(stdoutdata), 8 * 1024)
 
+    def test_columns(self):
+        stdoutdata, _ = dada('-c8')
+        lines = stdoutdata.split('\n')
+        self.assertEqual(lines[0].count('\t'), 7)
+
     def test_delimiter(self):
         stdoutdata, _ = dada('-d,')
         self.assertIn(',', stdoutdata)
@@ -27,7 +32,7 @@ class DadaTest(unittest.TestCase):
     def test_usage(self):
         _, stderrdata = dada('-h')
         self.assertEqual(stderrdata,
-            'Usage: dada [-d delimiter] [-s size] [-v]\n')
+            'Usage: dada [-c columns] [-d delimiter] [-s size] [-v]\n')
 
 
 def dada(*opts):

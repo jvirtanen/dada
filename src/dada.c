@@ -38,6 +38,7 @@
 #define VERSION "0.1.0"
 
 struct settings {
+    size_t              number_of_columns;
     char                field_delimiter;
     unsigned long long  size;
 };
@@ -63,13 +64,14 @@ enum column_type {
 
 static void usage(void);
 static void version(void);
+static size_t parse_number_of_columns(const char *);
 static unsigned long long parse_size(const char *);
 static void init(void);
 static size_t generate_number_of_columns(void);
 static enum column_type *generate_column_types(size_t);
 static void write_rows(FILE *, const enum column_type *,
-    size_t, const struct settings *);
-static int write_row(FILE *, const enum column_type *, size_t,
+    const struct settings *);
+static int write_row(FILE *, const enum column_type *,
     const struct settings *);
 static int write_field(FILE *, enum column_type);
 static int write_number(FILE *);
@@ -80,19 +82,22 @@ static int xrand(int, int);
 int
 main(int argc, char *argv[])
 {
-    size_t number_of_columns;
     enum column_type *column_types;
     int ch;
 
     struct settings settings = {
+        .number_of_columns  = generate_number_of_columns(),
         .field_delimiter    = DEFAULT_FIELD_DELIMITER,
         .size               = DEFAULT_SIZE
     };
 
     opterr = 0;
 
-    while ((ch = getopt(argc, argv, "d:s:v")) != -1) {
+    while ((ch = getopt(argc, argv, "c:d:s:v")) != -1) {
         switch (ch) {
+        case 'c':
+            settings.number_of_columns = parse_number_of_columns(optarg);
+            break;
         case 'd':
             settings.field_delimiter = optarg[0];
             break;
@@ -106,6 +111,9 @@ main(int argc, char *argv[])
         }
     }
 
+    if (settings.number_of_columns == 0)
+        usage();
+
     if (settings.size == 0)
         usage();
 
@@ -117,11 +125,9 @@ main(int argc, char *argv[])
 
     init();
 
-    number_of_columns = generate_number_of_columns();
+    column_types = generate_column_types(settings.number_of_columns);
 
-    column_types = generate_column_types(number_of_columns);
-
-    write_rows(stdout, column_types, number_of_columns, &settings);
+    write_rows(stdout, column_types, &settings);
 
     free(column_types);
 
@@ -131,7 +137,7 @@ main(int argc, char *argv[])
 static void
 usage(void)
 {
-    fprintf(stderr, "Usage: dada [-d delimiter] [-s size] [-v]\n");
+    fprintf(stderr, "Usage: dada [-c columns] [-d delimiter] [-s size] [-v]\n");
     exit(EXIT_FAILURE);
 }
 
@@ -140,6 +146,25 @@ version(void)
 {
     printf("%s\n", VERSION);
     exit(EXIT_SUCCESS);
+}
+
+static size_t
+parse_number_of_columns(const char *p)
+{
+    size_t number_of_columns;
+
+    number_of_columns = 0;
+
+    while (isdigit(*p)) {
+        number_of_columns *= 10;
+        number_of_columns += *p - '0';
+        p++;
+    }
+
+    if (*p != '\0')
+        number_of_columns = 0;
+
+    return number_of_columns;
 }
 
 static unsigned long long
@@ -213,7 +238,7 @@ generate_column_types(size_t number_of_columns)
 
 static void
 write_rows(FILE *file, const enum column_type *column_types,
-    size_t number_of_columns, const struct settings *settings)
+    const struct settings *settings)
 {
     unsigned long long target;
     unsigned long long size;
@@ -222,19 +247,19 @@ write_rows(FILE *file, const enum column_type *column_types,
     size = 0;
 
     while (size < target)
-        size += write_row(file, column_types, number_of_columns, settings);
+        size += write_row(file, column_types, settings);
 }
 
 static int
 write_row(FILE *file, const enum column_type *column_types,
-    size_t number_of_columns, const struct settings *settings)
+    const struct settings *settings)
 {
     int size;
     size_t i;
 
     size = 0;
 
-    for (i = 0; i < number_of_columns - 1; i++) {
+    for (i = 0; i < settings->number_of_columns - 1; i++) {
         size += write_field(file, column_types[i]) + 1;
         fputc(settings->field_delimiter, file);
     }
