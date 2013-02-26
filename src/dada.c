@@ -85,6 +85,8 @@ main(int argc, char *argv[])
     enum column_type *column_types;
     int ch;
 
+    init();
+
     struct settings settings = {
         .number_of_columns  = generate_number_of_columns(),
         .field_delimiter    = DEFAULT_FIELD_DELIMITER,
@@ -122,8 +124,6 @@ main(int argc, char *argv[])
 
     if (argc != 0)
         usage();
-
-    init();
 
     column_types = generate_column_types(settings.number_of_columns);
 
