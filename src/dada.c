@@ -22,6 +22,7 @@
 
 #include <ctype.h>
 #include <getopt.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -209,7 +210,7 @@ parse_size(const char *p)
 static void
 init(void)
 {
-    srand48(time(NULL));
+    srandom(time(NULL));
 }
 
 static size_t
@@ -316,5 +317,5 @@ generate_column_type(void)
 static int
 xrand(int min, int max)
 {
-    return (int)(drand48() * (max - min + 1)) + min;
+    return (int)(random() * (max - min + 0.5) / INT32_MAX + min);
 }
