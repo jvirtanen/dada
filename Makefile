@@ -5,6 +5,7 @@ PYTHON ?= python
 
 PREFIX ?= /usr/local
 
+CFLAGS += -D_XOPEN_SOURCE=500
 CFLAGS += -O3
 CFLAGS += -Wall
 CFLAGS += -Wextra
