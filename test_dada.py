@@ -36,7 +36,7 @@ class DadaTest(unittest.TestCase):
 
 
 def dada(*opts):
-    args = ['../dada']
+    args = ['./dada']
     args.extend(opts)
     process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return process.communicate()

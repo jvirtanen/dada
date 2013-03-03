@@ -39,7 +39,7 @@ install: $(PROG)
 
 test: $(PROG)
 	$(E) "  TEST     "
-	$(Q) cd test; $(PYTHON) test_dada.py
+	$(Q) $(PYTHON) test_dada.py
 .PHONY: test
 
 $(PROG): $(OBJS)
