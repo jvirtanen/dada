@@ -13,7 +13,7 @@ CFLAGS += -Wshadow
 CFLAGS += -pedantic
 CFLAGS += -std=c99
 
-OBJS += src/dada.o
+OBJS += dada.o
 PROG := dada
 
 ifeq ($(strip $(V)),)
