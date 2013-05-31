@@ -167,36 +167,31 @@ static unsigned long long
 parse_size(const char *p)
 {
     unsigned long long size;
+    char *q;
 
-    size = 0;
+    size = strtoll(p, &q, 10);
 
-    while (isdigit(*p)) {
-        size *= 10;
-        size += *p - '0';
-        p++;
-    }
-
-    switch (*p) {
+    switch (*q) {
     case 'K':
     case 'k':
         size *= 1024;
-        p++;
+        q++;
         break;
     case 'M':
     case 'm':
         size *= 1024 * 1024;
-        p++;
+        q++;
         break;
     case 'G':
     case 'g':
         size *= 1024 * 1024 * 1024;
-        p++;
+        q++;
         break;
     default:
         break;
     }
 
-    if (*p != '\0')
+    if (*q != '\0')
         size = 0;
 
     return size;
