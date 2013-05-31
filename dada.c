@@ -153,16 +153,11 @@ static size_t
 parse_number_of_columns(const char *p)
 {
     size_t number_of_columns;
+    char *q;
 
-    number_of_columns = 0;
+    number_of_columns = strtol(p, &q, 10);
 
-    while (isdigit(*p)) {
-        number_of_columns *= 10;
-        number_of_columns += *p - '0';
-        p++;
-    }
-
-    if (*p != '\0')
+    if (*q != '\0')
         number_of_columns = 0;
 
     return number_of_columns;
