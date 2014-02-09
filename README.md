@@ -4,6 +4,12 @@ Dada
 Dada is a simple program for generating tabular text data.
 
 
+Requirements
+------------
+
+Dada requires a C99 compiler and GNU Make.
+
+
 Installation
 ------------
 
