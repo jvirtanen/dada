@@ -3,7 +3,7 @@ LD := $(CC)
 
 PYTHON ?= python
 
-PREFIX ?= /usr/local
+PREFIX ?= $(HOME)
 
 CFLAGS += -D_XOPEN_SOURCE=500
 CFLAGS += -O3

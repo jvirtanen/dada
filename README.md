@@ -15,9 +15,9 @@ Installation
 
     make install
 
-The default installation location is `/usr/local`. Override it with `$PREFIX`:
+The default installation location is `$HOME`. Override it with `$PREFIX`:
 
-    PREFIX=$HOME make install
+    PREFIX=/usr/local make install
 
 
 History
