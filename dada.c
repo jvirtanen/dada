@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static unsigned long long parse_size(const char *);
 static void init(void);
 static size_t generate_number_of_columns(void);
 static enum column_type *generate_column_types(size_t);
@@ -103,6 +102,40 @@ parse_number_of_columns(const char *p)
         number_of_columns = 0;
 
     return number_of_columns;
+}
+
+static unsigned long long
+parse_size(const char *p)
+{
+    unsigned long long size;
+    char *q;
+
+    size = strtoll(p, &q, 10);
+
+    switch (*q) {
+    case 'K':
+    case 'k':
+        size *= 1024;
+        q++;
+        break;
+    case 'M':
+    case 'm':
+        size *= 1024 * 1024;
+        q++;
+        break;
+    case 'G':
+    case 'g':
+        size *= 1024 * 1024 * 1024;
+        q++;
+        break;
+    default:
+        break;
+    }
+
+    if (*q != '\0')
+        size = 0;
+
+    return size;
 }
 
 int
@@ -158,40 +191,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static unsigned long long
-parse_size(const char *p)
-{
-    unsigned long long size;
-    char *q;
-
-    size = strtoll(p, &q, 10);
-
-    switch (*q) {
-    case 'K':
-    case 'k':
-        size *= 1024;
-        q++;
-        break;
-    case 'M':
-    case 'm':
-        size *= 1024 * 1024;
-        q++;
-        break;
-    case 'G':
-    case 'g':
-        size *= 1024 * 1024 * 1024;
-        q++;
-        break;
-    default:
-        break;
-    }
-
-    if (*q != '\0')
-        size = 0;
-
-    return size;
 }
 
 static void
