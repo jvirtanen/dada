@@ -4,12 +4,6 @@ Dada
 Dada generates tabular text data.
 
 
-Usage
------
-
-    Usage: dada [-c columns] [-d delimiter] [-s size] [-v]
-
-
 Installation
 ------------
 
@@ -18,6 +12,12 @@ Installation
 The default installation location is `$HOME`. Override it with `$PREFIX`:
 
     PREFIX=/usr/local make install
+
+
+Usage
+-----
+
+    Usage: dada [-c columns] [-d delimiter] [-s size] [-v]
 
 
 History
