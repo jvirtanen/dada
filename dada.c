@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static size_t parse_number_of_columns(const char *);
 static unsigned long long parse_size(const char *);
 static void init(void);
 static size_t generate_number_of_columns(void);
@@ -90,6 +89,20 @@ version(void)
 {
     printf("%s\n", VERSION);
     exit(EXIT_SUCCESS);
+}
+
+static size_t
+parse_number_of_columns(const char *p)
+{
+    size_t number_of_columns;
+    char *q;
+
+    number_of_columns = strtol(p, &q, 10);
+
+    if (*q != '\0')
+        number_of_columns = 0;
+
+    return number_of_columns;
 }
 
 int
@@ -145,20 +158,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static size_t
-parse_number_of_columns(const char *p)
-{
-    size_t number_of_columns;
-    char *q;
-
-    number_of_columns = strtol(p, &q, 10);
-
-    if (*q != '\0')
-        number_of_columns = 0;
-
-    return number_of_columns;
 }
 
 static unsigned long long
