@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static size_t generate_number_of_columns(void);
 static enum column_type *generate_column_types(size_t);
 static void write_rows(FILE *, const enum column_type *,
     const struct settings *);
@@ -143,6 +142,12 @@ init(void)
     srandom(time(NULL));
 }
 
+static size_t
+generate_number_of_columns(void)
+{
+    return (size_t)xrand(COLUMNS_MIN, COLUMNS_MAX);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -196,12 +201,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static size_t
-generate_number_of_columns(void)
-{
-    return (size_t)xrand(COLUMNS_MIN, COLUMNS_MAX);
 }
 
 static enum column_type *
