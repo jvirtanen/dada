@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static void version(void);
 static size_t parse_number_of_columns(const char *);
 static unsigned long long parse_size(const char *);
 static void init(void);
@@ -84,6 +83,13 @@ usage(void)
 {
     fprintf(stderr, "Usage: dada [-c columns] [-d delimiter] [-s size] [-v]\n");
     exit(EXIT_FAILURE);
+}
+
+static void
+version(void)
+{
+    printf("%s\n", VERSION);
+    exit(EXIT_SUCCESS);
 }
 
 int
@@ -139,13 +145,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static void
-version(void)
-{
-    printf("%s\n", VERSION);
-    exit(EXIT_SUCCESS);
 }
 
 static size_t
