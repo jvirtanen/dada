@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static int write_field(FILE *, enum column_type);
 static int write_number(FILE *);
 static int write_text(FILE *);
 static enum column_type generate_column_type(void);
@@ -162,6 +161,23 @@ generate_column_types(size_t number_of_columns)
 }
 
 static int
+write_field(FILE *file, enum column_type column_type)
+{
+    int size;
+
+    switch (column_type) {
+    case COLUMN_TYPE_NUMBER:
+        size = write_number(file);
+        break;
+    case COLUMN_TYPE_TEXT:
+        size = write_text(file);
+        break;
+    }
+
+    return size;
+}
+
+static int
 write_row(FILE *file, const enum column_type *column_types,
     const struct settings *settings)
 {
@@ -247,23 +263,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static int
-write_field(FILE *file, enum column_type column_type)
-{
-    int size;
-
-    switch (column_type) {
-    case COLUMN_TYPE_NUMBER:
-        size = write_number(file);
-        break;
-    case COLUMN_TYPE_TEXT:
-        size = write_text(file);
-        break;
-    }
-
-    return size;
 }
 
 static int
