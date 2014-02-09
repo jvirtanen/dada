@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static enum column_type generate_column_type(void);
 static int xrand(int, int);
 
 static void
@@ -138,6 +137,12 @@ static size_t
 generate_number_of_columns(void)
 {
     return (size_t)xrand(COLUMNS_MIN, COLUMNS_MAX);
+}
+
+static enum column_type
+generate_column_type(void)
+{
+    return (enum column_type)xrand(COLUMN_TYPE_NUMBER, COLUMN_TYPE_TEXT);
 }
 
 static enum column_type *
@@ -282,12 +287,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static enum column_type
-generate_column_type(void)
-{
-    return (enum column_type)xrand(COLUMN_TYPE_NUMBER, COLUMN_TYPE_TEXT);
 }
 
 static int
