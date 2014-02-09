@@ -24,7 +24,7 @@ else
 	Q :=
 endif
 
-all: test
+all: $(PROG)
 .PHONY: all
 
 clean:
