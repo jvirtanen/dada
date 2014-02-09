@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static enum column_type *generate_column_types(size_t);
 static void write_rows(FILE *, const enum column_type *,
     const struct settings *);
 static int write_row(FILE *, const enum column_type *,
@@ -148,6 +147,24 @@ generate_number_of_columns(void)
     return (size_t)xrand(COLUMNS_MIN, COLUMNS_MAX);
 }
 
+static enum column_type *
+generate_column_types(size_t number_of_columns)
+{
+    enum column_type *column_types;
+    size_t i;
+
+    column_types = calloc(number_of_columns, sizeof(enum column_type));
+    if (column_types == NULL) {
+        perror("calloc");
+        exit(EXIT_FAILURE);
+    }
+
+    for (i = 0; i < number_of_columns; i++)
+        column_types[i] = generate_column_type();
+
+    return column_types;
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -201,24 +218,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static enum column_type *
-generate_column_types(size_t number_of_columns)
-{
-    enum column_type *column_types;
-    size_t i;
-
-    column_types = calloc(number_of_columns, sizeof(enum column_type));
-    if (column_types == NULL) {
-        perror("calloc");
-        exit(EXIT_FAILURE);
-    }
-
-    for (i = 0; i < number_of_columns; i++)
-        column_types[i] = generate_column_type();
-
-    return column_types;
 }
 
 static void
