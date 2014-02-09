@@ -63,8 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static void write_rows(FILE *, const enum column_type *,
-    const struct settings *);
 static int write_row(FILE *, const enum column_type *,
     const struct settings *);
 static int write_field(FILE *, enum column_type);
@@ -165,6 +163,20 @@ generate_column_types(size_t number_of_columns)
     return column_types;
 }
 
+static void
+write_rows(FILE *file, const enum column_type *column_types,
+    const struct settings *settings)
+{
+    unsigned long long target;
+    unsigned long long size;
+
+    target = settings->size;
+    size = 0;
+
+    while (size < target)
+        size += write_row(file, column_types, settings);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -218,20 +230,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static void
-write_rows(FILE *file, const enum column_type *column_types,
-    const struct settings *settings)
-{
-    unsigned long long target;
-    unsigned long long size;
-
-    target = settings->size;
-    size = 0;
-
-    while (size < target)
-        size += write_row(file, column_types, settings);
 }
 
 static int
