@@ -63,7 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static int write_text(FILE *);
 static enum column_type generate_column_type(void);
 static int xrand(int, int);
 
@@ -163,6 +162,21 @@ static int
 write_number(FILE *file)
 {
     return fprintf(file, "%d", xrand(NUMBER_MIN, NUMBER_MAX));
+}
+
+static int
+write_text(FILE *file)
+{
+    int size;
+    int i;
+
+    size = xrand(TEXT_LENGTH_MIN, TEXT_LENGTH_MAX);
+
+    for (i = 0; i < size; i++) {
+        fputc(xrand('a', 'z'), file);
+    }
+
+    return size;
 }
 
 static int
@@ -268,21 +282,6 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static int
-write_text(FILE *file)
-{
-    int size;
-    int i;
-
-    size = xrand(TEXT_LENGTH_MIN, TEXT_LENGTH_MAX);
-
-    for (i = 0; i < size; i++) {
-        fputc(xrand('a', 'z'), file);
-    }
-
-    return size;
 }
 
 static enum column_type
