@@ -63,8 +63,6 @@ enum column_type {
     COLUMN_TYPE_TEXT
 };
 
-static int xrand(int, int);
-
 static void
 usage(void)
 {
@@ -131,6 +129,12 @@ static void
 init(void)
 {
     srandom(time(NULL));
+}
+
+static int
+xrand(int min, int max)
+{
+    return (int)(random() * (max - min + 0.5) / INT32_MAX + min);
 }
 
 static size_t
@@ -287,10 +291,4 @@ main(int argc, char *argv[])
     free(column_types);
 
     return 0;
-}
-
-static int
-xrand(int min, int max)
-{
-    return (int)(random() * (max - min + 0.5) / INT32_MAX + min);
 }
