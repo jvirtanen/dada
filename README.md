@@ -30,7 +30,28 @@ To install, run:
 Usage
 -----
 
-    Usage: dada [-c columns] [-d delimiter] [-s size] [-v]
+To generate one kilobyte of [tab-separated values][TSV], run:
+
+    dada
+
+You can specify the size of the data with the `-s` option. To generate one
+gigabyte of data, run:
+
+    dada -s1g
+
+If you want to generate, for example, [comma-separated values][CSV] instead of
+TSV, you have to set the field delimiter with the `-d` option. To generate CSV,
+run:
+
+    dada -d,
+
+By default, the number of columns is randomly chosen. However, you can set it
+with the `-c` option. To generate data with eight columns, run:
+
+    dada -c8
+
+  [CSV]: http://tools.ietf.org/html/rfc4180
+  [TSV]: http://www.iana.org/assignments/media-types/text/tab-separated-values
 
 
 License
