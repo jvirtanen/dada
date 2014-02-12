@@ -1,7 +1,7 @@
 Dada
 ====
 
-Dada generates tabular text data.
+Dada is a simple program for generating tabular text data.
 
 
 Installation
