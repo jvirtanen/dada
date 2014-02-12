@@ -54,6 +54,16 @@ with the `-c` option. To generate data with eight columns, run:
   [TSV]: http://www.iana.org/assignments/media-types/text/tab-separated-values
 
 
+Development
+-----------
+
+To execute the tests, run:
+
+    make test
+
+Executing the tests requires Python.
+
+
 License
 -------
 
