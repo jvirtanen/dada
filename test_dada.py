@@ -27,7 +27,7 @@ class DadaTest(unittest.TestCase):
 
     def test_version(self):
         stdoutdata, _ = dada('-v')
-        self.assertEqual(stdoutdata, '0.1.0\n')
+        self.assertEqual(stdoutdata, '1.0.0\n')
 
     def test_usage(self):
         _, stderrdata = dada('-h')
