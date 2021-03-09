@@ -1,7 +1,7 @@
 CC ?= gcc
 LD := $(CC)
 
-PYTHON ?= python
+PYTHON ?= python3
 
 PREFIX ?= $(HOME)
 
